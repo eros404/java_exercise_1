@@ -7,6 +7,7 @@ public class Launcher {
         commands.add(new Quit());
         commands.add(new Fibo());
         commands.add(new Freq());
+        commands.add(new Predict());
 
         final var scanner = new java.util.Scanner(System.in);
         String input;

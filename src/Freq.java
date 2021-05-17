@@ -27,7 +27,7 @@ public class Freq implements Command{
     }
 
     public String getFreq(String input) {
-        var firstTreatment = input.replaceAll("[^\\w\\s]", " ").toLowerCase(Locale.ROOT).split(" ");
+        var firstTreatment = input.replaceAll("[^\\w\\s]|\\n", " ").toLowerCase(Locale.ROOT).split(" ");
         var mapping = Arrays.stream(firstTreatment).filter(s -> !s.isBlank())
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
