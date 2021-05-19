@@ -29,7 +29,7 @@ public class Predict implements Command{
     }
 
     public String[] getWords(String content) {
-        return Arrays.stream(content.replaceAll("[^\\w\\s]|\\n", " ").toLowerCase(Locale.ROOT)
+        return Arrays.stream(content.replaceAll("[^\\w\\s]|\\n", " ")
                 .split(" ")).filter(s -> !s.isBlank()).toArray(String[]::new);
     }
 
@@ -62,9 +62,7 @@ public class Predict implements Command{
                 lastWasWord = true;
             }
         }
-        var comparatorCountReversed = Map.Entry.<String, Long>comparingByValue()
-                .reversed();
-        var optional = frequencies.entrySet().stream().min(comparatorCountReversed).map(Map.Entry::getKey);
+        var optional = frequencies.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey);
         return optional.orElse(null);
     }
 
