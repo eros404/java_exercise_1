@@ -10,17 +10,16 @@ public class Launcher {
         commands.add(new Predict());
 
         final var scanner = new java.util.Scanner(System.in);
-        String input;
+
         Boolean continueExecution = true;
         do {
-            input = scanner.nextLine();
-            for (Command command : commands) {
-                if (command.name().equals(input)) {
-                    continueExecution = command.run(scanner);
-                    break;
-                } else if (command.equals(commands.get(commands.size() - 1))) {
-                    System.out.println("Unknown command");
-                }
+            final var input = scanner.nextLine();
+            var command = commands.stream().filter(x -> x.name().equals(input)).findFirst().orElse(null);
+            if (command != null) {
+                continueExecution = command.run(scanner);
+            }
+            else {
+                System.out.println("Unknown command");
             }
         } while (continueExecution);
     }
